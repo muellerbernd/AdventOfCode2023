@@ -11,10 +11,7 @@ fn get_revealed_cubes(input: &String) -> Vec<Vec<String>> {
     all_revealed_cubes
 }
 
-fn task1(
-    all_revealed_cubes: &Vec<Vec<String>>,
-    max_allowed_cubes: &HashMap<String, usize>,
-) -> i32 {
+fn task1(all_revealed_cubes: &Vec<Vec<String>>, max_allowed_cubes: &HashMap<String, usize>) -> i32 {
     let mut possible_run_idxs: Vec<usize> = vec![1; all_revealed_cubes.len()];
     for (i, reveal) in all_revealed_cubes.iter().enumerate() {
         for cubes in reveal {
@@ -32,6 +29,36 @@ fn task1(
     }
     res
 }
+
+fn task2(all_revealed_cubes: &Vec<Vec<String>>) -> i32 {
+    let mut games: Vec<HashMap<String, usize>> = Vec::new();
+    for reveal in all_revealed_cubes {
+        let mut min_cubes: HashMap<String, usize> = HashMap::from([
+            ("red".to_string(), 0),
+            ("green".to_string(), 0),
+            ("blue".to_string(), 0),
+        ]);
+        for cubes in reveal {
+            let run: Vec<_> = cubes.split(" ").collect();
+            let k: String = run.last().unwrap().to_string();
+            let v: usize = run.first().unwrap().parse::<usize>().unwrap();
+            if v > *min_cubes.get(&k).unwrap() {
+                *min_cubes.get_mut(&k).unwrap() = v;
+            }
+        }
+        games.push(min_cubes);
+    }
+    let mut power: i32 = 0;
+    for g in games {
+        let mut game_power: i32 = 1;
+        for v in g.values() {
+            game_power *= *v as i32;
+        }
+        power += game_power;
+    }
+    power
+}
+
 fn main() {
     let max_allowed_cubes: HashMap<String, usize> = HashMap::from([
         ("red".to_string(), 12),
@@ -49,4 +76,6 @@ fn main() {
     let all_revealed_cubes = get_revealed_cubes(&raw_input);
     let task1_solution = task1(&all_revealed_cubes, &max_allowed_cubes);
     println!("task1 solution={}", task1_solution);
+    let task2_solution = task2(&all_revealed_cubes);
+    println!("task2 solution={}", task2_solution);
 }
