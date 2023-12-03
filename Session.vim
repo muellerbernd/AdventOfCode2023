@@ -13,14 +13,12 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +9 day03/src/main.rs
-badd +140 inputs/aoc_03.txt
+badd +8 day03/src/main.rs
 badd +10 day03/test_input.txt
 argglobal
 %argdel
 edit day03/src/main.rs
 argglobal
-balt inputs/aoc_03.txt
 setlocal fdm=expr
 setlocal fde=v:lua.vim.treesitter.foldexpr()
 setlocal fmr={{{,}}}
@@ -29,16 +27,16 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
-13
+16
 normal! zo
-17
+20
 normal! zo
-let s:l = 1 - ((0 * winheight(0) + 25) / 51)
+let s:l = 8 - ((7 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 0
+keepjumps 8
+normal! 047|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

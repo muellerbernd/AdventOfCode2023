@@ -2,15 +2,18 @@ use std::collections::HashMap;
 use std::fs::read_to_string;
 
 fn parse_input(puzzle_input: &Vec<String>) {
+    let mut mat: Vec<Vec<u8>> = Vec::new();
     for (row, line) in puzzle_input.iter().enumerate() {
         dbg!(line.clone());
+        let mut mat_row: Vec<u8> = vec![0; line.len()];
         for (col, c) in line.chars().enumerate() {
             if c >= '0' && c <= '9' && c != '.' {
-                println!("char is number")
+                mat_row[col] = 1;
             }
-            dbg!(c);
         }
+        mat.push(mat_row);
     }
+    dbg!(mat);
 }
 
 fn main() {
