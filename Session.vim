@@ -15,10 +15,13 @@ else
 endif
 badd +8 day03/src/main.rs
 badd +10 day03/test_input.txt
+badd +7 day04/src/main.rs
+badd +6 day04/sample_input.txt
 argglobal
 %argdel
-edit day03/src/main.rs
+edit day04/src/main.rs
 argglobal
+balt day04/sample_input.txt
 setlocal fdm=expr
 setlocal fde=v:lua.vim.treesitter.foldexpr()
 setlocal fmr={{{,}}}
@@ -27,16 +30,16 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
-16
+4
 normal! zo
-20
+5
 normal! zo
-let s:l = 8 - ((7 * winheight(0) + 25) / 51)
+let s:l = 1 - ((0 * winheight(0) + 14) / 29)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 8
-normal! 047|
+keepjumps 1
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
