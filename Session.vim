@@ -13,15 +13,13 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +8 day03/src/main.rs
-badd +10 day03/test_input.txt
-badd +7 day04/src/main.rs
-badd +6 day04/sample_input.txt
+badd +1 day05/src/main.rs
+badd +8 day05/Cargo.toml
 argglobal
 %argdel
-edit day04/src/main.rs
+edit day05/src/main.rs
 argglobal
-balt day04/sample_input.txt
+balt day05/Cargo.toml
 setlocal fdm=expr
 setlocal fde=v:lua.vim.treesitter.foldexpr()
 setlocal fmr={{{,}}}
@@ -30,11 +28,7 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
-4
-normal! zo
-5
-normal! zo
-let s:l = 1 - ((0 * winheight(0) + 14) / 29)
+let s:l = 1 - ((0 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -53,7 +47,6 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost
