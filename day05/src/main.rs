@@ -1,7 +1,4 @@
-use std::collections::HashSet;
 use std::fs::read_to_string;
-use std::iter::zip;
-use std::iter::FromIterator;
 
 fn parse_input(raw_input: &String) -> Vec<Vec<Vec<usize>>> {
     raw_input
