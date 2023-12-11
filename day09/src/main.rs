@@ -33,6 +33,33 @@ fn task01(histories: &Vec<Vec<i32>>) {
     );
 }
 
+fn task02(histories: &Vec<Vec<i32>>) {
+    let mut extrapolated_values: Vec<i32> = Vec::new();
+    for i in 0..histories.len() {
+        let mut temp_sequences: Vec<Vec<i32>> = Vec::new();
+        let mut temp_sequence: Vec<i32> = histories[i].to_owned();
+        while !temp_sequence.iter().all(|&x| x == 0) {
+            temp_sequences.push(temp_sequence.clone());
+            let mut scratchpad: Vec<i32> = Vec::new();
+            for j in 1..temp_sequence.len() {
+                scratchpad.push(temp_sequence[j] - temp_sequence[j - 1]);
+            }
+            temp_sequence = scratchpad;
+        }
+        temp_sequences.push(temp_sequence.clone());
+        let mut extrapolated_value: i32 = 0;
+        for seq in temp_sequences.iter().rev() {
+            let val: i32 = *seq.first().unwrap();
+            extrapolated_value = val - extrapolated_value;
+        }
+
+        extrapolated_values.push(extrapolated_value);
+    }
+    println!(
+        "Solution for Task 2 = {}",
+        extrapolated_values.iter().sum::<i32>()
+    );
+}
 fn main() {
     let file_path = "../inputs/aoc_09.txt";
     // let file_path = "sample_input.txt";
@@ -43,4 +70,5 @@ fn main() {
     let histories: Vec<Vec<i32>> = parse_input(&raw_input);
     println!("{:?}", histories);
     task01(&histories);
+    task02(&histories);
 }
