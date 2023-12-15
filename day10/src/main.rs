@@ -1,6 +1,6 @@
 use std::fs::read_to_string;
 
-fn parse_input(raw_input: &String) {
+fn parse_input(raw_input: &String) -> (Vec<Vec<char>>, (usize, usize)) {
     println!("{}", raw_input);
     let grid: Vec<Vec<char>> = raw_input.lines().map(|l| l.chars().collect()).collect();
     println!("grid {:?}", grid);
@@ -9,12 +9,13 @@ fn parse_input(raw_input: &String) {
     for (row, line) in grid.iter().enumerate() {
         for (col, c) in line.iter().enumerate() {
             if *c == 'S' {
-                start_xy = (col,row);
+                start_xy = (col, row);
                 break;
             }
         }
     }
     println!("start_xy {:?}", start_xy);
+    (grid, start_xy)
 }
 
 fn main() {
@@ -23,6 +24,7 @@ fn main() {
 
     let raw_input: String =
         read_to_string(file_path).expect("Should have been able to read the file");
-    parse_input(&raw_input);
+    let (grid, start_xy): (Vec<Vec<char>>, (usize, usize)) = parse_input(&raw_input);
+    println!("{:?} {:?}", grid, start_xy);
     // let camel_card_to_bid: Vec<(Vec<usize>, i32)> = parse_input(raw_input.clone());
 }
