@@ -23,13 +23,16 @@ fn main() {
         read_to_string(file_path).expect("Should have been able to read the file");
     let (field, start_point): (Vec<Vec<char>>, (usize, usize)) = parse_input(&raw_input);
     println!("{:?} {:?}", field, start_point);
-    // let camel_card_to_bid: Vec<(Vec<usize>, i32)> = parse_input(raw_input.clone());
-    let possible_startings = [
-        (start_point.0 + 1, start_point.1),
-        (start_point.0 - 1, start_point.1),
-        (start_point.0, start_point.1 + 1),
-        (start_point.0, start_point.1 - 1),
-    ];
+    let possible_startings: Vec<(usize,usize)> = [
+            (start_point.0 as i32 + 1, start_point.1 as i32),
+            (start_point.0 as i32 - 1, start_point.1 as i32),
+            (start_point.0 as i32, start_point.1 as i32 + 1),
+            (start_point.0 as i32, start_point.1 as i32 - 1),
+        ]
+        .to_vec()
+        .iter()
+        .filter(|(col, row)| col >= &0 && row >= &0).map(|(col,row)| (*col as usize, *row as usize)).collect()
+;
     for (col, row) in possible_startings {
         let tile: char = match field.get(row) {
             Some(r) => match r.get(col) {
